@@ -6,6 +6,7 @@ import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Meta from '../components/Meta'
 import {
   getOrderDetails,
   payOrder,
@@ -63,7 +64,7 @@ const OrderScreen = ({ match, history }) => {
       document.body.appendChild(script)
     }
 
-    if (!order || successPay || successDeliver) {
+    if (!order || successPay || successDeliver || order._id !== orderId) {
       dispatch({ type: ORDER_PAY_RESET })
       dispatch({ type: ORDER_DELIVER_RESET })
       dispatch(getOrderDetails(orderId))
@@ -95,6 +96,13 @@ const OrderScreen = ({ match, history }) => {
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
+      <Link
+        className='btn btn-dark my-3'
+        to={!userInfo.isAdmin ? '/profile' : '/admin/orderlist'}
+      >
+        Go Back
+      </Link>
+      <Meta title='ProShop | Order Status' />
       <h1>Order {order._id}</h1>
       <Row>
         <Col md={8}>
