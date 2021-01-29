@@ -7,7 +7,7 @@ import Product from '../models/productModel.js'
 const getProducts = asyncHandler(async (req, res) => {
   //req.query -- query is used to get strings after "?" on params i.e. (/api/products?foo=bar)
 
-  const pageSize = 10
+  const pageSize = 8
   const page = Number(req.query.pageNumber) || 1
 
   const keyword = req.query.keyword
